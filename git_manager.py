@@ -36,6 +36,7 @@ def print_header(title):
     print(f"\n{Colors.BOLD}{Colors.CYAN}{'='*60}{Colors.RESET}")
     print(f"{Colors.BOLD}{Colors.GREEN}   {title}{Colors.RESET}")
     print(f"{Colors.BOLD}{Colors.CYAN}{'='*60}{Colors.RESET}\n")
+    sys.stdout.flush()
 
 def print_success(msg):
     print(f"{Colors.GREEN}[OK] {msg}{Colors.RESET}")
@@ -69,6 +70,8 @@ def run_git(args, capture=True, check=False, silent=False):
                     print_error(f"Error al ejecutar {' '.join(cmd)}:\n{stderr}")
             return stdout, stderr, res.returncode
         else:
+            sys.stdout.flush()
+            sys.stderr.flush()
             code = subprocess.call(cmd)
             return "", "", code
     except FileNotFoundError:
